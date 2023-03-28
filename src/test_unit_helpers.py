@@ -64,7 +64,19 @@ class ClosestRobotRequestDispatcherUnitTest(unittest.TestCase):
         valid_json_data = JSONRequestTestFixtureUtilities.get_post_data(load_id=1,
                                                                         x=0,
                                                                         y=0)
+
         is_valid = ClosestRobotRequestDispatcher.is_request_json_valid(valid_json_data)
+
+        self.assertTrue(is_valid)
+
+    def test_is_request_json_valid_returns_true_when_json_is_correctly_formatted_with_extra_data(self):
+        valid_json_data = JSONRequestTestFixtureUtilities.get_post_data(load_id=1,
+                                                                        x=0,
+                                                                        y=0)
+        valid_json_data['extraField'] = 'extraData'
+
+        is_valid = ClosestRobotRequestDispatcher.is_request_json_valid(valid_json_data)
+
         self.assertTrue(is_valid)
 
     def test_is_request_json_valid_returns_true_when_json_contains_load_id_greater_than_equal_to_0(self):
@@ -93,6 +105,12 @@ class ClosestRobotRequestDispatcherUnitTest(unittest.TestCase):
 
         valid_json_data = JSONRequestTestFixtureUtilities.get_post_data(x=1,
                                                                         y=1)
+        is_valid = ClosestRobotRequestDispatcher.is_request_json_valid(valid_json_data)
+        self.assertTrue(is_valid)
+
+    def test_is_request_json_valid_returns_true_when_json_contains_float_x_y_coordinates(self):
+        valid_json_data = JSONRequestTestFixtureUtilities.get_post_data(x=-0.5,
+                                                                        y=-0.5)
         is_valid = ClosestRobotRequestDispatcher.is_request_json_valid(valid_json_data)
         self.assertTrue(is_valid)
 

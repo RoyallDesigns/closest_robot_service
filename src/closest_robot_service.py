@@ -8,6 +8,7 @@ import helpers
 SERVER_HOST = 'localhost'
 SERVER_PORT = 5000
 API_BASE_PATH = '/api/robots'
+OK_RESPONSE_CODE = 200
 UNSUPPORTED_MEDIA_TYPE_RESPONSE_CODE = 415
 
 g_flask_app = flask.Flask(__name__)
@@ -17,8 +18,11 @@ g_flask_app = flask.Flask(__name__)
 def determine_closest_robot():
     if flask.request.is_json and \
        helpers.ClosestRobotRequestDispatcher.is_request_json_valid(flask.request.get_json()):
-        return {}, 200
-    g_flask_app.logger.warn('Unsupported Data Supplied in JSON Request.')
+        return (helpers.ResponseJSONFormatter.get_formatted_response_json(robot_id=0,
+                                                                          distance_to_goal=0,
+                                                                          battery_level=0),
+                OK_RESPONSE_CODE)
+    g_flask_app.logger.warning('Unsupported Data Supplied in JSON Request.')
     return (helpers.ResponseJSONFormatter.get_formatted_error_response_json(),
             UNSUPPORTED_MEDIA_TYPE_RESPONSE_CODE)
 
