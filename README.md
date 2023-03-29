@@ -1,7 +1,7 @@
 ## Closest Robot Service
 This microservice calculates which robot should transport a pallet from point A to point B
 based on which robot is the closest and has the most battery left (if there are multiple in
-the proximity of the load's location). This service uses a underlying
+the proximity of the load's location). This service uses an underlying
 [REST](https://www.w3.org/2001/sw/wiki/REST) endpoint in order to create a simplified robot
 routing REST service.
 
