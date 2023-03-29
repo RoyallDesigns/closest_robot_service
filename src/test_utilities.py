@@ -14,3 +14,23 @@ class JSONRequestTestFixtureUtilities(object):
         return {load_id_name: 0,
                 x_coordinate_name: 0,
                 y_coordinate_name: 0}
+
+
+class JSONRobotDatabaseDataTextFixtureUtilities(object):
+
+    @staticmethod
+    def get_robot_database_data(robot_id=0, battery_level=100, x=0, y=0):
+        return {'robotId': robot_id,
+                'batteryLevel': battery_level,
+                'x': x,
+                'y': y}
+
+    @staticmethod
+    def get_robot_database_data_override_names(robot_id_name='robotId',
+                                               battery_level_name='batteryLevel',
+                                               x_name='x',
+                                               y_name='y'):
+        return {robot_id_name: 0,
+                battery_level_name: 100,
+                x_name: 0,
+                y_name: 0}
