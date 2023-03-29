@@ -40,10 +40,10 @@ class RequestJSONTransformer(object):
         load_id = request_json[cls._LOAD_ID_KEY]
         x_coordinate = request_json[cls._X_COORDINATE_KEY]
         y_coordinate = request_json[cls._Y_COORDINATE_KEY]
-        load_id_is_int = (type(load_id) == int)
+        load_id_is_int = (type(load_id) == int) or ((type(load_id) == str) and (load_id.isnumeric()))
         coordinates_are_numbers = ((type(x_coordinate) == int) or (type(x_coordinate) == float)) and \
                                   ((type(y_coordinate) == int) or (type(y_coordinate) == float))
-        return load_id_is_int and (load_id >= 0) and coordinates_are_numbers
+        return load_id_is_int and (int(load_id) >= 0) and coordinates_are_numbers
 
     @classmethod
     def is_request_json_valid(cls, request_json):
@@ -80,11 +80,11 @@ class RobotDatabaseJSONTransformer(object):
         battery_level = robot_database_json[cls._BATTERY_LEVEL_KEY]
         x_coordinate = robot_database_json[cls._X_COORDINATE_KEY]
         y_coordinate = robot_database_json[cls._Y_COORDINATE_KEY]
-        robot_id_is_int = (type(robot_id) == int)
+        robot_id_is_int = (type(robot_id) == int) or ((type(robot_id) == str) and (robot_id.isnumeric()))
         battery_level_is_number = ((type(battery_level) == int) or (type(battery_level) == float))
         coordinates_are_numbers = ((type(x_coordinate) == int) or (type(x_coordinate) == float)) and \
                                   ((type(y_coordinate) == int) or (type(y_coordinate) == float))
-        return robot_id_is_int and (robot_id >= 0) and \
+        return robot_id_is_int and (int(robot_id) >= 0) and \
             battery_level_is_number and (battery_level >= 0) and (battery_level <= 100) and\
             coordinates_are_numbers
 

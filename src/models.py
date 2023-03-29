@@ -9,7 +9,7 @@ class Robot(object):
         self._distance_to_load = None
 
     def get_id(self):
-        return self._id
+        return int(self._id)
 
     def get_battery_level(self):
         return self._battery_level
@@ -35,7 +35,7 @@ class Load(object):
         self._y_coordinate = y_coordinate
 
     def get_id(self):
-        return self._id
+        return int(self._id)
 
     def get_x_coordinate(self):
         return self._x_coordinate

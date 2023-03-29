@@ -112,6 +112,18 @@ class ClosestRobotServiceAcceptanceTest(unittest.TestCase):
                                   'batteryLevel': None}
         self.assertEqual(first=response.json(), second=expected_response_json)
 
+    def test_can_handle_load_request_with_string_id_greater_than_equal_to_0_and_provide_valid_response(self):
+        valid_json_input_data = JSONRequestTestFixtureUtilities.get_post_data(load_id='100')
+
+        response = requests.post(url=self._ENDPOINT_URL, json=valid_json_input_data)
+
+        self.assertEqual(first=response.status_code, second=200)  # OK
+
+        response_json = response.json()
+        for response_key in ['robotId', 'distanceToGoal', 'batteryLevel']:
+            response_value = response_json[response_key]
+            self.assertGreaterEqual(a=response_value, b=0)
+
 
 if __name__ == '__main__':
     unittest.main()

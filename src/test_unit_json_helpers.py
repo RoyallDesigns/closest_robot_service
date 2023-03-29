@@ -92,6 +92,19 @@ class RequestJSONTransformerUnitTest(unittest.TestCase):
         is_valid = RequestJSONTransformer.is_request_json_valid(valid_json_data)
         self.assertTrue(is_valid)
 
+    def test_is_request_json_valid_returns_true_when_json_contains_robot_id_string_greater_than_equal_to_0(self):
+        invalid_json_data = JSONRequestTestFixtureUtilities.get_post_data(load_id='-1')
+        is_valid = RequestJSONTransformer.is_request_json_valid(invalid_json_data)
+        self.assertFalse(is_valid)
+
+        valid_json_data = JSONRequestTestFixtureUtilities.get_post_data(load_id='0')
+        is_valid = RequestJSONTransformer.is_request_json_valid(valid_json_data)
+        self.assertTrue(is_valid)
+
+        valid_json_data = JSONRequestTestFixtureUtilities.get_post_data(load_id='1')
+        is_valid = RequestJSONTransformer.is_request_json_valid(valid_json_data)
+        self.assertTrue(is_valid)
+
     def test_is_request_json_valid_returns_true_when_json_contains_x_y_coordinates_of_any_value(self):
         valid_json_data = JSONRequestTestFixtureUtilities.get_post_data(x=-1,
                                                                         y=-1)
@@ -201,6 +214,19 @@ class RobotDatabaseJSONTransformerUnitTest(unittest.TestCase):
         self.assertTrue(is_valid)
 
         valid_json_data = JSONRobotDatabaseDataTextFixtureUtilities.get_robot_database_data(robot_id=1)
+        is_valid = RobotDatabaseJSONTransformer.is_robot_database_json_valid(valid_json_data)
+        self.assertTrue(is_valid)
+
+    def test_robot_database_json_valid_returns_true_when_json_contains_robot_id_string_greater_than_equal_to_0(self):
+        invalid_json_data = JSONRobotDatabaseDataTextFixtureUtilities.get_robot_database_data(robot_id='-1')
+        is_valid = RobotDatabaseJSONTransformer.is_robot_database_json_valid(invalid_json_data)
+        self.assertFalse(is_valid)
+
+        valid_json_data = JSONRobotDatabaseDataTextFixtureUtilities.get_robot_database_data(robot_id='0')
+        is_valid = RobotDatabaseJSONTransformer.is_robot_database_json_valid(valid_json_data)
+        self.assertTrue(is_valid)
+
+        valid_json_data = JSONRobotDatabaseDataTextFixtureUtilities.get_robot_database_data(robot_id='1')
         is_valid = RobotDatabaseJSONTransformer.is_robot_database_json_valid(valid_json_data)
         self.assertTrue(is_valid)
 

@@ -17,6 +17,10 @@ class RobotUnitTest(unittest.TestCase):
         robot = self.create_robot_with(id=101)
         self.assertEqual(first=robot.get_id(), second=101)
 
+    def test_robot_can_handle_string_id_to_set_and_get(self):
+        robot = self.create_robot_with(id='300')
+        self.assertEqual(first=robot.get_id(), second=300)
+
     def test_robot_has_a_battery_level_to_set_and_get(self):
         robot = self.create_robot_with(battery_level=50)
         self.assertEqual(first=robot.get_battery_level(), second=50)
@@ -47,6 +51,10 @@ class LoadUnitTest(unittest.TestCase):
     def test_load_has_an_id_to_set_and_get(self):
         load = self.create_load_with(id=99)
         self.assertEqual(first=load.get_id(), second=99)
+
+    def test_load_can_handle_string_id_to_set_and_get(self):
+        load = self.create_load_with(id='1000')
+        self.assertEqual(first=load.get_id(), second=1000)
 
     def test_load_has_an_x_and_y_coordinate_to_set_and_get(self):
         load = self.create_load_with(x_coordinate=1, y_coordinate=2)
