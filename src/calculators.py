@@ -1,5 +1,8 @@
 import math
 
+# Internal Libraries
+from json_helpers import RequestJSONTransformer, RobotDatabaseJSONTransformer
+
 
 class ClosestRobotCalculator(object):
     _DISTANCE_WINDOW = 10
@@ -32,3 +35,12 @@ class ClosestRobotCalculator(object):
             if current_robot.get_battery_level() > closest_robot_with_most_battery.get_battery_level():
                 closest_robot_with_most_battery = current_robot
         return closest_robot_with_most_battery
+
+    @classmethod
+    def calculate_closest_robot_for_load_from_json_format(cls, robots_json, load_json):
+        if not RequestJSONTransformer.is_request_json_valid(load_json):
+            raise ValueError('Load Request JSON is Invalid.')
+        load = RequestJSONTransformer.create_load_from_request_json(load_json)
+        robots = [RobotDatabaseJSONTransformer.create_robot_from_robot_database_json(robot_json)
+                  for robot_json in robots_json if RobotDatabaseJSONTransformer.is_robot_database_json_valid(robot_json)]
+        return cls.calculate_closest_robot_for_load(robots=robots, load=load)
