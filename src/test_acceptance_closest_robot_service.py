@@ -23,19 +23,19 @@ class ClosestRobotServiceAcceptanceTest(unittest.TestCase):
 
         self.assertEqual(first=response.status_code, second=415)  # Unsupported Media Type
 
-        expected_response_json = {'robotId': -9999,
-                                  'distanceToGoal': -9999,
-                                  'batteryLevel': -9999}
+        expected_response_json = {'robotId': None,
+                                  'distanceToGoal': None,
+                                  'batteryLevel': None}
         self.assertEqual(first=response.json(), second=expected_response_json)
 
     def test_empty_post_leads_to_error_response(self):
         response = requests.post(url=self._ENDPOINT_URL, json={})
 
-        self.assertEqual(first=response.status_code, second=415)  # Unsupported Media Type
+        self.assertEqual(first=response.status_code, second=400)  # Bad Request
 
-        expected_response_json = {'robotId': -9999,
-                                  'distanceToGoal': -9999,
-                                  'batteryLevel': -9999}
+        expected_response_json = {'robotId': None,
+                                  'distanceToGoal': None,
+                                  'batteryLevel': None}
         self.assertEqual(first=response.json(), second=expected_response_json)
 
     def test_properly_fielded_post_data_with_bad_data_leads_to_error_response(self):
@@ -45,11 +45,11 @@ class ClosestRobotServiceAcceptanceTest(unittest.TestCase):
 
         response = requests.post(url=self._ENDPOINT_URL, json=improperly_populated_data)
 
-        self.assertEqual(first=response.status_code, second=415)  # Unsupported Media Type
+        self.assertEqual(first=response.status_code, second=400)  # Bad Request
 
-        expected_response_json = {'robotId': -9999,
-                                  'distanceToGoal': -9999,
-                                  'batteryLevel': -9999}
+        expected_response_json = {'robotId': None,
+                                  'distanceToGoal': None,
+                                  'batteryLevel': None}
         self.assertEqual(first=response.json(), second=expected_response_json)
 
     def test_properly_fielded_post_data_with_bad_data_names_leads_to_error_response(self):
@@ -59,11 +59,11 @@ class ClosestRobotServiceAcceptanceTest(unittest.TestCase):
 
         response = requests.post(url=self._ENDPOINT_URL, json=improperly_named_data)
 
-        self.assertEqual(first=response.status_code, second=415)  # Unsupported Media Type
+        self.assertEqual(first=response.status_code, second=400)  # Bad Request
 
-        expected_response_json = {'robotId': -9999,
-                                  'distanceToGoal': -9999,
-                                  'batteryLevel': -9999}
+        expected_response_json = {'robotId': None,
+                                  'distanceToGoal': None,
+                                  'batteryLevel': None}
         self.assertEqual(first=response.json(), second=expected_response_json)
 
     def test_get_data_at_endpoint_leads_to_error_response(self):
@@ -99,6 +99,18 @@ class ClosestRobotServiceAcceptanceTest(unittest.TestCase):
         for response_key in ['robotId', 'distanceToGoal', 'batteryLevel']:
             response_value = response_json[response_key]
             self.assertGreaterEqual(a=response_value, b=0)
+
+    def test_post_data_with_negative_load_id_leads_to_error_response(self):
+        data_with_improper_load_id = JSONRequestTestFixtureUtilities.get_post_data(load_id=-101)
+
+        response = requests.post(url=self._ENDPOINT_URL, json=data_with_improper_load_id)
+
+        self.assertEqual(first=response.status_code, second=400)  # Bad Request
+
+        expected_response_json = {'robotId': None,
+                                  'distanceToGoal': None,
+                                  'batteryLevel': None}
+        self.assertEqual(first=response.json(), second=expected_response_json)
 
 
 if __name__ == '__main__':
