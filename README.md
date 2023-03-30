@@ -60,7 +60,7 @@ by running the `run_all_tests.sh` script or the command `python3 -m unittest dis
 For manual testing / a demonstration of how the system can be used using an external tool,
 navigate to the directory `manual_json_curl_test` and run the `run_curl_manual_test.sh` script.
 Alternatively, you can run the command:
-`curl -X POST -H "Content-Type: application/json" -d @test_json_for_curl.json http://localhost:5000/api/robots/closest`
+`curl -X POST -H "Content-Type: application/json" -d @test_json_for_curl.json http://localhost:5000/api/robots/closest`.
 Note that the service must be running when these commands are executed.
 Request / Load data can be changed by editing the contents of the `test_json_for_curl.json` file.
 
@@ -81,7 +81,7 @@ the implementatipon provided in this project, but formal documentation should be
     there are several files all in one `src` directory. Additionally, the `test_*.py` files could be moved into their
     own corresponding `test` modules. Separating the tests and the implementation can prevent an overwhelming growth of
     files that run the risk of becoming unmanageable.
-  - More formal Python Package Setup using the appropriate metadata files such as as `pyproject.toml` file can be more
+  - More formal Python Package Setup using the appropriate metadata files such as a `pyproject.toml` file can be more
     beneficial / helpful for the user during the installation process. Being able to install and manage this project
     as a python package can be more efficient from a maintenance perspective vs. manually managing the files (copy /
     paste / delete).
@@ -108,6 +108,14 @@ the implementatipon provided in this project, but formal documentation should be
   - Additionally, such a service should be able to support encrypted connections using the `HTTPS` protocol rather than
     plain `HTTP` for the purposes of security, privacy, and data integrity. Some WSGI servers should be able to support
     this. Otherwise, a reverse proxy in front of the WSGI server should be employed such as `nginx`.
+- Refactoring:
+  - Some of the higher level methods used in the implementation of this project are rather lengthy and complex for a single method.
+  - Reducing methods and functions of a larger size into smaller methods and functions reduces maintenance challenges and complexity.
+  - Additionally, smaller methods and functions are easier to test and easier to document and read.
+- Peer Review:
+  - Code Reviews are always important.
+  - A second pair of eyes can be the difference between success and failure.
+  - Mistakes or misunderstandings in requirements can slip though the cracks, but can be caught and fixed with just a simple review by a peer.
 
 #### Developers / Maintainers:
 - William R. Drumheller
