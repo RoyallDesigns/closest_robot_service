@@ -1,13 +1,11 @@
 ## Closest Robot Service
-This microservice calculates which robot should transport a pallet from point A to point B
+This microservice calculates which robot should transport a pallet (or load) from point A to point B
 based on which robot is the closest and has the most battery left (if there are multiple in
 the proximity of the load's location). This service uses an underlying
-[REST](https://www.w3.org/2001/sw/wiki/REST) endpoint in order to create a simplified robot
-routing REST service.
+[REST](https://www.w3.org/2001/sw/wiki/REST) endpoint in order to help create a simplified robot routing REST service.
 
 This endpoint accepts a `POST`-ed payload that contains a load entity which needs to be moved,
-including its identifier and its current cartesian coordinates. This endpoint then returns the
-the robot that is best to transport the load based on which one is closest to the load's location.
+including its identifier and its current cartesian coordinates. This endpoint then returns the robot that is best to transport the load based on which one is closest to the load's location.
 However, if there is more than one robot within 10 distance units of the load, this service returns
 the robot with the most battery remaining.
 
@@ -15,7 +13,7 @@ the robot with the most battery remaining.
 The REST endpoint is available at `http://localhost:5000/api/robots/closest` once the service is
 started.
 
-When JSON data containg a Load's ID, its X Coordinate, and its Y Coordinate,
+When JSON data containing a Load's ID, its X Coordinate, and its Y Coordinate,
 such as the following is `POST`-ed to the endpoint...
 ```
 {
@@ -73,8 +71,8 @@ These include:
 - Documentation:
   - `pydoc` or `Doxygen` comments should be added to the publicly accessible methods, functions, and classes of this
     project to explain what the preconditions, postconditions, accepted data types, returned data types, thrown
-    exceptions, etc. are. Currently, the test harness does a reasonable job of explaining how to use and develop with
-    the implementatipon provided in this project, but formal documentation should be provided.
+    exceptions, etc. are. Currently, the test harness does a reasonable job of explaining how to use the current system and develop a larger system with 
+the implementatipon provided in this project, but formal documentation should be provided.
   - High Level, User Documentation could be created to provide a more formal explanation of how this service should be
     employed, depending on its use cases.
 - Python Package Setup:
@@ -93,7 +91,7 @@ These include:
     malfunctioning. In order to do this, more complex test fixtures or additional services in a DevOps pipeline would
     need to be created or stood up to help simulate and test these conditions. Furthermore, adding more configurability
     to the main service setup itself could allow for more test coverage since other REST Endpoints could be specified
-    at the main entrypoint of the system and allow for the testing of the entire system during an underlying failure.
+    at the main entrypoint of the system and allow for the testing of the entire system during an underlying failure or using fake data.
   - Error Handling should be expanded for the main entrypoint of the service; the server code itself likely has room
     for error handling using `try / except` blocks as well as underlying JSON data retrieval through the underlying REST
     service for Robot Data (as mentioned above). Logging to a log file during failures would also be beneficial to
@@ -102,7 +100,7 @@ These include:
     if the main endpoint is unavailable. A reliable service should be able to handle when underlying services are
     unavailable and then attempt to fallback to alternate, redundnant, or backup options. For example, a secondary
     Robot Data REST Endpoint could be connected to in the event that the first is unavailable so that the main service
-    stills serves as a viable option.
+    still serves as a viable option.
 - Production Support:
   - Ideally, a robust, production-ready service should be implemented using a production server instead of one that is
     used for local debuggging and testing. The underlying [Flask](https://flask.palletsprojects.com/en/2.2.x) server
